@@ -1,0 +1,10 @@
+.protocolCard {
+  margin: 16px;
+  float: left;
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}

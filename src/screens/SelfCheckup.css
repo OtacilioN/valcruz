@@ -1,0 +1,31 @@
+h4 {
+  font-family: "Roboto", sans-serif;
+  font-size: 12pt;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.7);
+  margin-bottom: 16px;
+  margin-top: 24px;
+}
+.MuiButton-root {
+  margin: 4px !important;
+  background-color: white !important;
+  border: 1px solid #004b4f !important;
+  box-sizing: border-box !important;
+  padding: 8px !important;
+  border-radius: 0px !important;
+  color: #004b4f !important;
+}
+
+.MuiButton-contained {
+  background-color: #004b4f !important;
+  color: white !important;
+}
+
+.rounded-button {
+  margin-top: 24px !important;
+  border-radius: 32px !important;
+  padding: 8px 32px 8px 32px !important;
+  float: right !important;
+  clear: right !important;
+  margin-bottom: 72px !important;
+}

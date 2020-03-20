@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+/* Reset */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: white;
+  margin: 24px;
+}
+
+h1 {
+  font-family: "Roboto", sans-serif;
+  font-size: 16pt;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.87);
+  margin-bottom: 16px;
+  margin-top: 64px;
+}
+
+h5 {
+  font-family: "Roboto", sans-serif;
+  font-size: 12pt;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 16px;
+}
+
+.choiceButton {
+  display: block !important;
+  color: #004b4f !important;
+  border: none !important;
+  margin: 8px !important;
+  padding: 8px !important;
+}
+
+.nextButton {
+  background: #004b4f !important;
+  border-radius: 200px !important;
+  color: white !important;
+  position: absolute !important;
+  bottom: 16px !important;
+  right: 16px !important;
+}
+
+.barra-azul {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: rgba(1, 163, 157, 0.71);
+}
+
+.MuiFormControl-root {
+  width: 100% !important;
+  margin-bottom: 16px !important;
+}
+
+.MuiFormControl-root {
+  margin: 16px;
+}
