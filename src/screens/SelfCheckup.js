@@ -31,7 +31,7 @@ const SelfCheckup = props => {
   };
 
   const handleSubmit = () => {
-    const lastReport = { symptoms, epi, hadContact };
+    const lastReport = { symptoms, epi, hadContact, temperature };
     localStorage.setItem("lastReport", JSON.stringify(lastReport));
     reportHealthCheck(lastReport);
     setSymptom([]);

@@ -33,7 +33,7 @@ const OnBoard = props => {
   };
 
   const handleCityChange = event => {
-    setHasNameError(false);
+    setHasCityError(false);
     setCity(event.target.value);
   };
 
