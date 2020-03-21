@@ -25,3 +25,13 @@ export const reportHealthCheck = healthCheck => {
     .doc(userId)
     .set(reportObject, { merge: true });
 };
+
+export const getContent = async () => {
+  const db = firebase.firestore();
+  const querySnapshot = await db.collection("content").get();
+  const content = {};
+  querySnapshot.forEach(doc => {
+    content[doc.id] = doc.data();
+  });
+  return content;
+};
