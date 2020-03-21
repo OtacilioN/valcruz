@@ -12,13 +12,15 @@ import Profile from "./screens/Profile";
 
 function App() {
   const [hasOnboardFinished, setHasOnboardFinished] = useState();
+  const [tab, setTab] = React.useState(0);
+
   useEffect(() => {
     setHasOnboardFinished(localStorage.getItem("hasOnboardFinished"));
   }, []);
+
   const onOnboardFinish = () => {
     setHasOnboardFinished(true);
   };
-  const [tab, setTab] = React.useState(0);
   const onSubmitCheckup = () => {
     setTab(0);
   };

@@ -10,6 +10,7 @@ const TextMaskCustom = props => {
       ref={ref => {
         inputRef(ref ? ref.inputElement : null);
       }}
+      type="tel"
       mask={[
         "(",
         /[1-9]/,

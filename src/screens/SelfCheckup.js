@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import "./SelfCheckup.css";
 import TextField from "@material-ui/core/TextField";
+import { reportHealthCheck } from "../service/firestore";
 
 const SelfCheckup = props => {
   const [symptoms, setSymptom] = useState([]);
@@ -22,7 +23,7 @@ const SelfCheckup = props => {
     }
   };
 
-  const [hadContact, setHadContact] = useState();
+  const [hadContact, setHadContact] = useState("Não sei informar");
 
   const [temperature, setTemperature] = React.useState("");
   const handleChange = event => {
@@ -32,6 +33,7 @@ const SelfCheckup = props => {
   const handleSubmit = () => {
     const lastReport = { symptoms, epi, hadContact };
     localStorage.setItem("lastReport", JSON.stringify(lastReport));
+    reportHealthCheck(lastReport);
     setSymptom([]);
     setEPI([]);
     setTemperature("");
@@ -123,6 +125,7 @@ const SelfCheckup = props => {
       </div>
       <div>
         <TextField
+          type="number"
           id="temperature"
           label="Temperatura em ºC"
           value={temperature}
