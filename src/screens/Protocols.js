@@ -30,7 +30,7 @@ const Protocols = props => {
     return content.map(c => {
       const id = c[0];
       const data = c[1];
-      return <InforCard id={id} data={data} />;
+      return <InforCard key={id} id={id} data={data} />;
     });
   };
   return (

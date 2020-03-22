@@ -6,7 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
-import WhatsAppIcon from '@material-ui/icons/WhatsApp';
+import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import { makeStyles } from "@material-ui/core/styles";
 import { red } from "@material-ui/core/colors";
 import Typography from "@material-ui/core/Typography";
@@ -44,24 +44,27 @@ const InfoCard = props => {
     setExpanded(!expanded);
   };
 
-  const whatsappMsg = props.data.text.replace(/<b>/g, "*").replace(/<\/b>/g, "*").replace(/<br \/>/g, "%0D%0A").replace(/<br\/>/g, "%0D%0A")
-  const whatsappLink = `whatsapp://send?text=❗ATUALIZAÇÃO ❗ %0D%0A %0D%0A ${whatsappMsg} %0D%0A %0D%0A Para saber mais acesse: %0D%0A https://valcruzapp.github.io/`
-  
+  const whatsappMsg = props.data.text
+    .replace(/<b>/g, "*")
+    .replace(/<\/b>/g, "*")
+    .replace(/<br \/>/g, "%0D%0A")
+    .replace(/<br\/>/g, "%0D%0A");
+  const whatsappLink = `whatsapp://send?text=❗ATUALIZAÇÃO ❗ %0D%0A %0D%0A ${whatsappMsg} %0D%0A %0D%0A Para saber mais acesse: %0D%0A https://valcruzapp.github.io/`;
 
-  function formatDate(date){
-    let array = date.split('/');
+  function formatDate(date) {
+    let array = date.split("/");
 
     let day = array[1];
-    if (day.length === 1){
-      day = `0${day}`
+    if (day.length === 1) {
+      day = `0${day}`;
     }
 
     let month = array[0];
-    if (month.length === 1){
-      month = `0${month}`
+    if (month.length === 1) {
+      month = `0${month}`;
     }
 
-    return(`${day}/${month}/${array[2]}`)
+    return `${day}/${month}/${array[2]}`;
   }
 
   return (
@@ -82,10 +85,14 @@ const InfoCard = props => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <a target="_blank" className="whatsapp-link" rel="noopener noreferrer" href={whatsappLink}>
+          <a
+            target="_blank"
+            className="whatsapp-link"
+            rel="noopener noreferrer"
+            href={whatsappLink}
+          >
             <WhatsAppIcon /> COMPARTILHAR
           </a>
- 
 
           <IconButton
             className={clsx(classes.expand, {
@@ -101,7 +108,8 @@ const InfoCard = props => {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Interweave content={props.data.text} />
-            <br/><br/>
+            <br />
+            <br />
             <Typography paragraph>
               <a
                 href={props.data.src}

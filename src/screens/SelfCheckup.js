@@ -47,7 +47,7 @@ const SelfCheckup = props => {
   };
 
   const handleSubmit = async () => {
-    const lastReport = { symptoms, epi, hadContact };
+    const lastReport = { symptoms, epi, hadContact, missingEpis: [] };
     localStorage.setItem("lastReport", JSON.stringify(lastReport));
     const dbReportId = await reportHealthCheck(lastReport);
     setReportId(dbReportId);
