@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import "./SelfCheckup.css";
 import { reportHealthCheck } from "../service/firestore";
+import FeedbackModal from "../components/FeedbackModal";
 
 const SelfCheckup = props => {
   const [symptoms, setSymptom] = useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [epi, setEPI] = useState([]);
+  const [hadContact, setHadContact] = useState("Não sei informar");
+
   const onClickSympthon = buttonName => {
     if (symptoms.includes(buttonName)) {
       setSymptom(symptoms.filter(e => e !== buttonName));
@@ -13,7 +18,6 @@ const SelfCheckup = props => {
     }
   };
 
-  const [epi, setEPI] = useState([]);
   const onClickEPI = buttonName => {
     if (epi.includes(buttonName)) {
       setEPI(epi.filter(e => e !== buttonName));
@@ -22,17 +26,21 @@ const SelfCheckup = props => {
     }
   };
 
-  const [hadContact, setHadContact] = useState("Não sei informar");
-
   const handleSubmit = () => {
     const lastReport = { symptoms, epi, hadContact };
     localStorage.setItem("lastReport", JSON.stringify(lastReport));
     reportHealthCheck(lastReport);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
     setSymptom([]);
     setEPI([]);
-    setHadContact();
+    setHadContact("Não sei informar");
     props.onSubmitCheckup();
   };
+
   return (
     <div>
       <h4>Faça uma auto-avaliação do seu estado de saúde.</h4>
@@ -116,7 +124,7 @@ const SelfCheckup = props => {
           Mal estar geral
         </Button>
       </div>
-      <h4>Quais destas EPIs você utilizou hoje?</h4>
+      <h4>Quais destes EPIs você utilizou hoje?</h4>
       <div>
         <Button
           variant={epi.includes("Gorro") ? "contained" : "outlined"}
@@ -182,6 +190,11 @@ const SelfCheckup = props => {
           Não sei informar
         </Button>
       </div>
+      <FeedbackModal
+        success={!symptoms.length}
+        open={open}
+        handleClose={handleClose}
+      />
       <div>
         <Button
           onClick={handleSubmit}
