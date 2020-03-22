@@ -14,6 +14,7 @@ export const setUser = user => {
       localStorage.setItem("userId", docRef.id);
     });
 };
+
 export const updateUser = user => {
   const db = firebase.firestore();
   const userId = localStorage.getItem("userId");
@@ -22,18 +23,25 @@ export const updateUser = user => {
     .set(user, { merge: true });
 };
 
-export const reportHealthCheck = healthCheck => {
+export const setPushKeys = pushkey => {
   const db = firebase.firestore();
   const userId = localStorage.getItem("userId");
-  const timeStamp = Date.now();
-  const reportObject = {};
-  reportObject[timeStamp] = healthCheck;
-  db.collection("healthChecks")
+  db.collection("users")
     .doc(userId)
-    .set(reportObject, { merge: true });
+    .update({ pushkey: pushkey });
 };
 
-// tas com internet mas sem o hangouts ne? ou tu tas la?
+export const reportHealthCheck = healthCheck => {
+  const db = firebase.firestore();
+  healthCheck.userId = localStorage.getItem("userId");
+  healthCheck.role = localStorage.getItem("role");
+  healthCheck.timeStamp = Date.now();
+
+
+  db.collection("healthChecks")
+    .doc()
+    .set(healthCheck, { merge: true });
+};
 
 export const getContent = async target => {
   const db = firebase.firestore();
