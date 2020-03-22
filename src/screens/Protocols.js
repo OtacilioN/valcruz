@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ProtocolCard1 from "../components/ProtocolCard1";
 import ProtocolCard2 from "../components/ProtocolCard2";
 import InforCard from "../components/InfoCard";
 import { getContent } from "../service/firestore";
