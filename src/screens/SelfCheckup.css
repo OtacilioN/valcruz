@@ -78,3 +78,14 @@ h4 {
   bottom: 8px;
   width: 100%;
 }
+
+.epi-options{
+  margin-top: 8px;
+}
+
+.Container .rounded-button{
+  margin: 0 auto !important;
+  position: absolute;
+  bottom: 16px;
+  right: 0; left: 0; margin: auto;
+}

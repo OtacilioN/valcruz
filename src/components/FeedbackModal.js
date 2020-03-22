@@ -63,13 +63,13 @@ const FeedbackModal = ({
   );
 
   const FeedbackEpi = () => (
-    <div>
+    <div className="Container">
       <h4>Reportar falta de EPI</h4>
       <h6>
         Marque os EPIs que você não teve acesso durante o plantão de
         atendimento.
       </h6>
-      <div>
+      <div className="epi-options">
         {missingEpi.map(e => (
           <Button
             variant={reportedEpi.includes(e) ? "contained" : "outlined"}

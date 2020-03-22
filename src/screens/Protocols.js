@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ProtocolCard2 from "../components/ProtocolCard2";
 import InforCard from "../components/InfoCard";
 import { getContent } from "../service/firestore";
 import { requestPermission } from "../service/PushNotifications";
@@ -36,7 +35,6 @@ const Protocols = props => {
   return (
     <div className="container">
       {getDinamicCards()}
-      <ProtocolCard2 />
     </div>
   );
 };
