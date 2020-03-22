@@ -37,7 +37,6 @@ const Protocols = props => {
   return (
     <div className="container">
       {getDinamicCards()}
-      <ProtocolCard1 />
       <ProtocolCard2 />
     </div>
   );

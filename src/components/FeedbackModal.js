@@ -15,7 +15,7 @@ const FeedbackModal = ({ open, handleClose, success }) => {
       onClose={handleClose}
     >
       <div className="Modal">
-        <div>
+        <div className="CloseButton">
           <IconButton onClick={handleClose}>
             <CloseIcon />
           </IconButton>
