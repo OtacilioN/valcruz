@@ -14,27 +14,17 @@ const FeedbackModal = ({ open, handleClose, success }) => {
       open={open}
       onClose={handleClose}
     >
-      <div
-        style={{
-          width: 375,
-          height: 375,
-          backgroundColor: "white",
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: `translate(-50%, -50%)`
-        }}
-      >
+      <div className="Modal">
         <div>
           <IconButton onClick={handleClose}>
             <CloseIcon />
           </IconButton>
         </div>
-        <div>
+        <div className="Container">
           {success ? (
-            <CheckCircleOutlineIcon style={{ fontSize: 60 }} />
+            <CheckCircleOutlineIcon className="WarningIcon"/>
           ) : (
-            <WarningIcon />
+            <WarningIcon className="WarningIcon"/>
           )}
           <h4>
             {success
@@ -49,7 +39,7 @@ const FeedbackModal = ({ open, handleClose, success }) => {
           )}
         </div>
 
-        <div>
+        <div className="button-holder">
           <Button variant="outlined">reportar falta de epi</Button>
           <Button onClick={handleClose} variant="contained">
             OK
