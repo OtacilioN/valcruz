@@ -31,15 +31,20 @@ export const setPushKeys = pushkey => {
     .update({ pushkey: pushkey });
 };
 
-export const reportHealthCheck = healthCheck => {
+export const reportHealthCheck = async healthCheck => {
   const db = firebase.firestore();
   healthCheck.userId = localStorage.getItem("userId");
   healthCheck.role = localStorage.getItem("role");
   healthCheck.timeStamp = Date.now();
 
+  const docRef = await db.collection("healthChecks").add(healthCheck);
+  return docRef.id;
+};
 
+export const updateHealthCheck = (healthCheck, id) => {
+  const db = firebase.firestore();
   db.collection("healthChecks")
-    .doc()
+    .doc(id)
     .set(healthCheck, { merge: true });
 };
 

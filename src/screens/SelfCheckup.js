@@ -5,8 +5,28 @@ import { reportHealthCheck } from "../service/firestore";
 import FeedbackModal from "../components/FeedbackModal";
 
 const SelfCheckup = props => {
+  const SYMPTOMS_LIST = [
+    "Cansaço",
+    "Congestão nasal",
+    "Corrimento nasal (coriza)",
+    "Febre",
+    "Dificuldade para respirar",
+    "Tosse",
+    "Dor de Cabeça",
+    "Dor de garganta",
+    "Dores pelo corpo",
+    "Mal estar geral"
+  ];
+  const EPIS_LIST = [
+    "Gorro",
+    "Óculos de proteção",
+    "Protetor facial",
+    "Máscara",
+    "Avental hipermeável",
+    "Luvas de procedimento"
+  ];
   const [symptoms, setSymptom] = useState([]);
-  const [open, setOpen] = React.useState(false);
+  const [reportId, setReportId] = useState();
   const [epi, setEPI] = useState([]);
   const [hadContact, setHadContact] = useState("Não sei informar");
 
@@ -26,15 +46,15 @@ const SelfCheckup = props => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const lastReport = { symptoms, epi, hadContact };
     localStorage.setItem("lastReport", JSON.stringify(lastReport));
-    reportHealthCheck(lastReport);
-    setOpen(true);
+    const dbReportId = await reportHealthCheck(lastReport);
+    setReportId(dbReportId);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setReportId();
     setSymptom([]);
     setEPI([]);
     setHadContact("Não sei informar");
@@ -45,129 +65,25 @@ const SelfCheckup = props => {
     <div>
       <h4>Faça uma auto-avaliação do seu estado de saúde.</h4>
       <div>
-        <Button
-          variant={symptoms.includes("Cansaço") ? "contained" : "outlined"}
-          onClick={() => onClickSympthon("Cansaço")}
-        >
-          Cansaço
-        </Button>
-        <Button
-          variant={
-            symptoms.includes("Congestão nasal") ? "contained" : "outlined"
-          }
-          onClick={() => onClickSympthon("Congestão nasal")}
-        >
-          Congestão nasal
-        </Button>
-        <Button
-          variant={
-            symptoms.includes("Corrimento nasal (coriza)")
-              ? "contained"
-              : "outlined"
-          }
-          onClick={() => onClickSympthon("Corrimento nasal (coriza)")}
-        >
-          Corrimento nasal (coriza)
-        </Button>
-        <Button
-          variant={symptoms.includes("Febre") ? "contained" : "outlined"}
-          onClick={() => onClickSympthon("Febre")}
-        >
-          Febre
-        </Button>
-        <Button
-          variant={
-            symptoms.includes("Dificuldade para respirar")
-              ? "contained"
-              : "outlined"
-          }
-          onClick={() => onClickSympthon("Dificuldade para respirar")}
-        >
-          Dificuldade para respirar
-        </Button>
-        <Button
-          variant={symptoms.includes("Tosse") ? "contained" : "outlined"}
-          onClick={() => onClickSympthon("Tosse")}
-        >
-          Tosse
-        </Button>
-        <Button
-          variant={
-            symptoms.includes("Dor de Cabeça") ? "contained" : "outlined"
-          }
-          onClick={() => onClickSympthon("Dor de Cabeça")}
-        >
-          Dor de Cabeça
-        </Button>
-        <Button
-          variant={
-            symptoms.includes("Dor de garganta") ? "contained" : "outlined"
-          }
-          onClick={() => onClickSympthon("Dor de garganta")}
-        >
-          Dor de garganta
-        </Button>
-        <Button
-          variant={
-            symptoms.includes("Dores pelo corpo") ? "contained" : "outlined"
-          }
-          onClick={() => onClickSympthon("Dores pelo corpo")}
-        >
-          Dores pelo corpo
-        </Button>
-        <Button
-          variant={
-            symptoms.includes("Mal estar geral") ? "contained" : "outlined"
-          }
-          onClick={() => onClickSympthon("Mal estar geral")}
-        >
-          Mal estar geral
-        </Button>
+        {SYMPTOMS_LIST.map(s => (
+          <Button
+            variant={symptoms.includes(s) ? "contained" : "outlined"}
+            onClick={() => onClickSympthon(s)}
+          >
+            {s}
+          </Button>
+        ))}
       </div>
-      <h4>Quais destes EPIs você utilizou hoje?</h4>
+      <h4>Quais EPIs você teve acesso hoje?</h4>
       <div>
-        <Button
-          variant={epi.includes("Gorro") ? "contained" : "outlined"}
-          onClick={() => onClickEPI("Gorro")}
-        >
-          Gorro
-        </Button>
-        <Button
-          variant={
-            epi.includes("Óculos de proteção") ? "contained" : "outlined"
-          }
-          onClick={() => onClickEPI("Óculos de proteção")}
-        >
-          Óculos de proteção
-        </Button>
-        <Button
-          variant={epi.includes("Protetor facial") ? "contained" : "outlined"}
-          onClick={() => onClickEPI("Protetor facial")}
-        >
-          Protetor facial
-        </Button>
-        <Button
-          variant={epi.includes("Máscara") ? "contained" : "outlined"}
-          onClick={() => onClickEPI("Máscara")}
-        >
-          Máscara
-        </Button>
-        <Button
-          variant={
-            epi.includes("Avental hipermeável") ? "contained" : "outlined"
-          }
-          onClick={() => onClickEPI("Avental hipermeável")}
-        >
-          Avental hipermeável
-        </Button>
-        <Button
-          variant={
-            epi.includes("Luvas de procedimento") ? "contained" : "outlined"
-          }
-          onClick={() => onClickEPI("Luvas de procedimento")}
-        >
-          Luvas de procedimento
-        </Button>
+        {EPIS_LIST.map(e => (
+          <Button
+            variant={epi.includes(e) ? "contained" : "outlined"}
+            onClick={() => onClickEPI(e)}
+          >
+            {e}
+          </Button>
+        ))}
       </div>
       <h4>Algum paciente atendido foi diagnosticado como positivo?</h4>
       <div>
@@ -192,8 +108,10 @@ const SelfCheckup = props => {
       </div>
       <FeedbackModal
         success={!symptoms.length}
-        open={open}
+        open={!!reportId}
+        reportId={reportId}
         handleClose={handleClose}
+        missingEpi={EPIS_LIST.filter(e => !epi.includes(e))}
       />
       <div>
         <Button
