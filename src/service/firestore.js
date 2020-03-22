@@ -14,6 +14,13 @@ export const setUser = user => {
       localStorage.setItem("userId", docRef.id);
     });
 };
+export const updateUser = user => {
+  const db = firebase.firestore();
+  const userId = localStorage.getItem("userId");
+  db.collection("users")
+    .doc(userId)
+    .set(user, { merge: true });
+};
 
 export const reportHealthCheck = healthCheck => {
   const db = firebase.firestore();
@@ -26,12 +33,26 @@ export const reportHealthCheck = healthCheck => {
     .set(reportObject, { merge: true });
 };
 
-export const getContent = async () => {
+// tas com internet mas sem o hangouts ne? ou tu tas la?
+
+export const getContent = async target => {
   const db = firebase.firestore();
-  const querySnapshot = await db.collection("content").get();
+  const querySnapshot = await db
+    .collection("content")
+    .where("target", "==", target)
+    .get();
   const content = {};
   querySnapshot.forEach(doc => {
     content[doc.id] = doc.data();
   });
+
+  const querySnapshot2 = await db
+    .collection("content")
+    .where("target", "==", "all")
+    .get();
+  querySnapshot2.forEach(doc => {
+    content[doc.id] = doc.data();
+  });
+
   return content;
 };

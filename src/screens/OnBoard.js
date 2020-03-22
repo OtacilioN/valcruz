@@ -83,6 +83,7 @@ const OnBoard = props => {
     localStorage.setItem("telephone", telephone);
     localStorage.setItem("name", name);
     localStorage.setItem("city", lowerCaseCity);
+    localStorage.setItem("place", place);
 
     if (validateName() && validateTelephone() && validateCity()) {
       localStorage.setItem("hasOnboardFinished", "true");

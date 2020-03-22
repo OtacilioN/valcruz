@@ -12,7 +12,7 @@ import { red } from "@material-ui/core/colors";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import clsx from "clsx";
-
+import Interweave from "interweave";
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: 345
@@ -36,16 +36,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Link = () => (
-  <a
-    target="_blank"
-    rel="noopener noreferrer"
-    href="whatsapp://send?text=❗ATUALIZAÇÃO ❗ %0D%0A %0D%0A A Associação Brasileira de Enfermeiros de Centro Cirúrgico (Sobecc) publicou algumas recomendações sobre o atendimento de pacientes com suspeita ou infecção confirmada pelo Covid-19 em procedimentos cirúrgicos ou endoscópicos. %0D%0A %0D%0A O material tem como objetivo garantir a segurança e a instrumentalização dos profissionais que atuam nessa área de assistência. %0D%0A %0D%0A Entre as recomendações, destacam-se: %0D%0A - proteção da equipe; %0D%0A - organização do atendimento; %0D%0A - preparo da sala de procedimento; %0D%0A - transporte do paciente cirúrgico intraoperatório %0D%0A - realização do procedimento endoscópio e pós-operatório ou pós-procedimento endoscópio imediato. %0D%0A %0D%0A para saber mais acesse : %0D%0A https://monitorcovid19.github.io/"
-  >
-    <ShareIcon />
-  </a>
-);
-
 const InfoCard = props => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
@@ -53,6 +43,12 @@ const InfoCard = props => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const Link = () => (
+    <a target="_blank" rel="noopener noreferrer" href={props.data.whatsapp}>
+      <ShareIcon />
+    </a>
+  );
 
   return (
     <div key={props.id} className="protocolCard">
@@ -64,9 +60,9 @@ const InfoCard = props => {
             </span>
           }
           title={props.data.title}
-          subheader={new Date(props.data.date.seconds * 1000).toLocaleString(
-            "pt-BR"
-          )}
+          subheader={new Date(
+            props.data.date.seconds * 1000
+          ).toLocaleDateString("pt-BR")}
         />
         <CardMedia
           className={classes.media}
@@ -92,8 +88,7 @@ const InfoCard = props => {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            {/* We will have to find a way to parse this text to html, we could check: https://github.com/milesj/interweave */}
-            <Typography paragraph>{props.data.text}</Typography>
+            <Interweave content={props.data.text} />
             <Typography paragraph>
               <a
                 href={props.data.src}

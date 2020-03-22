@@ -21,14 +21,14 @@ function App() {
   const onOnboardFinish = () => {
     setHasOnboardFinished(true);
   };
-  const onSubmitCheckup = () => {
+  const navigateToProtocols = () => {
     setTab(0);
   };
 
   const ComponentsStack = [
     <Protocols />,
-    <SelfCheckup onSubmitCheckup={onSubmitCheckup} />,
-    <Profile />
+    <SelfCheckup onSubmitCheckup={navigateToProtocols} />,
+    <Profile onUpdateFinish={navigateToProtocols} />
   ];
   const tabsName = ["Comunicados", "Auto-Avaliação", "Perfil"];
 

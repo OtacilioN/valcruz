@@ -64,7 +64,7 @@ const ProtocolCard1 = props => {
             </span>
           }
           title="Procedimentos Cirúrgicos ou Endoscópicos"
-          subheader="19 de Março, 2020"
+          subheader="19/03/2020"
         />
         <CardMedia
           className={classes.media}

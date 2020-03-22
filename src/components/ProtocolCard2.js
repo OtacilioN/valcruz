@@ -64,7 +64,7 @@ const ProtocolCard2 = props => {
             </span>
           }
           title="Segurança no Trabalho ao atendimento dos infectados pelo COVID-19"
-          subheader="15 de Março, 2020"
+          subheader="19/03/2020"
         />
         <CardMedia
           className={classes.media}

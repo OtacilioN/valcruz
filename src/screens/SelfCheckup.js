@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import "./SelfCheckup.css";
-import TextField from "@material-ui/core/TextField";
 import { reportHealthCheck } from "../service/firestore";
 
 const SelfCheckup = props => {
@@ -25,18 +24,12 @@ const SelfCheckup = props => {
 
   const [hadContact, setHadContact] = useState("Não sei informar");
 
-  const [temperature, setTemperature] = React.useState("");
-  const handleChange = event => {
-    setTemperature(event.target.value);
-  };
-
   const handleSubmit = () => {
-    const lastReport = { symptoms, epi, hadContact, temperature };
+    const lastReport = { symptoms, epi, hadContact };
     localStorage.setItem("lastReport", JSON.stringify(lastReport));
     reportHealthCheck(lastReport);
     setSymptom([]);
     setEPI([]);
-    setTemperature("");
     setHadContact();
     props.onSubmitCheckup();
   };
@@ -122,15 +115,6 @@ const SelfCheckup = props => {
         >
           Mal estar geral
         </Button>
-      </div>
-      <div>
-        <TextField
-          type="number"
-          id="temperature"
-          label="Temperatura em ºC"
-          value={temperature}
-          onChange={handleChange}
-        />
       </div>
       <h4>Quais destas EPIs você utilizou hoje?</h4>
       <div>
