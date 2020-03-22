@@ -6,7 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
-import ShareIcon from "@material-ui/icons/Share";
+import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import { makeStyles } from "@material-ui/core/styles";
 import { red } from "@material-ui/core/colors";
 import Typography from "@material-ui/core/Typography";
@@ -47,11 +47,6 @@ const InfoCard = props => {
   const whatsappMsg = props.data.text.replace(/<b>/g, "*").replace(/<\/b>/g, "*").replace(/<br \/>/g, "%0D%0A").replace(/<br\/>/g, "%0D%0A")
   const whatsappLink = `whatsapp://send?text=❗ATUALIZAÇÃO ❗ %0D%0A %0D%0A ${whatsappMsg} %0D%0A %0D%0A Para saber mais acesse: %0D%0A https://valcruzapp.github.io/`
   
-  const Link = () => (
-    <a target="_blank" rel="noopener noreferrer" href={whatsappLink}>
-      <ShareIcon />
-    </a>
-  );
 
   function formatDate(date){
     let array = date.split('/');
@@ -73,11 +68,6 @@ const InfoCard = props => {
     <div key={props.id} className="protocolCard">
       <Card className={classes.root}>
         <CardHeader
-          action={
-            <span style={{ cursor: "not-allowed" }}>
-              <IconButton component={Link} aria-label="share"></IconButton>
-            </span>
-          }
           title={props.data.title}
           subheader={formatDate(props.data.date)}
         />
@@ -92,6 +82,11 @@ const InfoCard = props => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
+          <a target="_blank" className="whatsapp-link" rel="noopener noreferrer" href={whatsappLink}>
+            <WhatsAppIcon /> COMPARTILHAR
+          </a>
+ 
+
           <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded

@@ -8,3 +8,24 @@
   clear: both;
   display: table;
 }
+
+.whatsapp-link{
+  height: 32px;
+  line-height: 32px;
+  background-color: #004B4F;
+  border-radius: 4px;
+  color: white !important;
+  text-decoration: none;
+  font-size: 8pt;
+  text-align: left;
+  padding-right: 16px;
+  font-weight: bold;
+}
+
+.whatsapp-link svg{
+  float: left;
+  margin-top: 3px;
+  margin-left: 12px;
+  margin-right: 12px;
+  font-weight: bold;
+}
