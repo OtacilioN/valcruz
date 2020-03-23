@@ -9,13 +9,41 @@ import FaceIcon from "@material-ui/icons/PersonOutlined";
 import Protocols from "./screens/Protocols";
 import SelfCheckup from "./screens/SelfCheckup";
 import Profile from "./screens/Profile";
+import { getContent } from "./service/firestore";
+import { requestPermission } from "./service/PushNotifications";
 
 function App() {
   const [hasOnboardFinished, setHasOnboardFinished] = useState();
   const [tab, setTab] = React.useState(0);
+  const [content, setContent] = useState([]);
 
   useEffect(() => {
     setHasOnboardFinished(localStorage.getItem("hasOnboardFinished"));
+
+    // Get Content
+    setContent(JSON.parse(localStorage.getItem("cachedContent")));
+    getContent(localStorage.getItem("role")).then(dbContent => {
+      setContent(Object.entries(dbContent));
+      localStorage.setItem(
+        "cachedContent",
+        JSON.stringify(Object.entries(dbContent))
+      );
+    });
+
+    // Update Content every minute
+    setInterval(() => {
+      // han pooling at 1 minute
+      getContent(localStorage.getItem("role")).then(dbContent => {
+        setContent(Object.entries(dbContent));
+        localStorage.setItem(
+          "cachedContent",
+          JSON.stringify(Object.entries(dbContent))
+        );
+      });
+    }, 60 * 1000);
+
+    // Request firebase permission
+    requestPermission();
   }, []);
 
   const onOnboardFinish = () => {
@@ -26,7 +54,7 @@ function App() {
   };
 
   const ComponentsStack = [
-    <Protocols />,
+    <Protocols content={content} />,
     <SelfCheckup onSubmitCheckup={navigateToProtocols} />,
     <Profile onUpdateFinish={navigateToProtocols} />
   ];
