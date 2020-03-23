@@ -15,7 +15,9 @@ const SelfCheckup = props => {
     "Dor de Cabeça",
     "Dor de garganta",
     "Dores pelo corpo",
-    "Mal estar geral"
+    "Mal estar geral",
+    "Diarréia",
+    "Vômito"
   ];
   const EPIS_LIST = [
     "Gorro",
@@ -107,7 +109,12 @@ const SelfCheckup = props => {
         </Button>
       </div>
       <FeedbackModal
-        success={!symptoms.length}
+        success={
+          !(
+            symptoms.includes("Febre") ||
+            symptoms.includes("Dificuldade para respirar")
+          )
+        }
         open={!!reportId}
         reportId={reportId}
         handleClose={handleClose}
