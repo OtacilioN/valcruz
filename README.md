@@ -2,6 +2,17 @@
 
 ValCruz is a solution to assist health professionals in combating COVID19 by creating a secure communication channel, allowing the updating of important protocols and information in real time, collecting data on the health status of these professionals in order to map cases of infection.
 
+
+## Try it now
+
+**Preview available at:** https://valcruzapp.github.io/
+
+### Front Page
+![Front Page](./screenshots/screenshot1.png)
+
+### Health Status
+![Health Status](./screenshots/screenshot2.png)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Instructions
